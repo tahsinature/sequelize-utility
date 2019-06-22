@@ -10,12 +10,12 @@
   "keywords": [
     "sequelize",
     "sequelize-help",
-    "postgres",
-    "pg",
-    "postgres-orm",
-    "orm",
     "orm-helper"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tahsinature/sequelize-utility.git"
+  },
   "author": "",
   "license": "ISC"
 }
