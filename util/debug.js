@@ -1,9 +1,9 @@
 const debug = require("debug");
-debug.enable("app:*");
+debug.enable("server:*");
 
 const namespaces = {
-  debugError: debug("app:error"),
-  debugDB: debug("app:db")
+  debugError: debug("server:error"),
+  debugDB: debug("server:db")
 };
 
 const allDebugKeys = Object.keys(namespaces);
