@@ -1,13 +1,27 @@
 # sequelize-utility
 
-<!-- [![npm](https://img.shields.io/npm/v/sequelize-pool.svg?style=flat-square)](https://www.npmjs.com/package/sequelize-pool)
-[![Travis (.org)](https://img.shields.io/travis/sushantdhiman/sequelize-pool.svg?style=flat-square)](https://travis-ci.org/sushantdhiman/sequelize-pool)
- -->
+[![npm version](https://badgen.net/npm/v/sequelize-utility)](https://www.npmjs.com/package/sequelize-utility)
+[![npm downloads](https://badgen.net/npm/dm/sequelize-utility)](https://www.npmjs.com/package/sequelize-utility)
+[![Last commit](https://badgen.net/github/last-commit/tahsinature/sequelize-utility)](https://github.com/tahsinature/sequelize-utility)
+[![GitHub stars](https://badgen.net/github/stars/tahsinature/sequelize-utility)](https://github.com/tahsinature/sequelize-utility)
+[![node](https://badgen.net/npm/node/sequelize-utility)](https://www.npmjs.com/package/sequelize-utility)
+[![License](https://badgen.net/github/license/tahsinature/sequelize-utility)](https://github.com/tahsinature/sequelize-utility/)
 
-  <!-- Resource pool. Can be used to reuse or throttle expensive resources such as
-  database connections.
+New to Sequelize? Take a look at the [Tutorials and Guides](http://docs.sequelizejs.com/).
 
-  This is a fork from [generic-pool@v2.5](https://github.com/coopernurse/node-pool/tree/v2.5). -->
+Sequelize-utility is a simple helper of Sequelize library, to efficiently interact with databases instance from Sequelize. Sequelize is a promise-based Node.js ORM for Postgres, MySQL, MariaDB, SQLite and Microsoft SQL Server. With sequelize-utility you can do operations like below in a promisified way with just simple calls:
+
+- Establish db connection
+- Establish multiple connections
+- Reset a table
+- Sync DB
+- Sync DB (For All Active Connections)
+- Sync Force DB
+- Sync Force DB (For All Active Connections)
+- Drop all created tables from Sequelize
+- Drop all created tables from Sequelize (For All Active Connections)
+
+<!-- ## v5 Release -->
 
 ## Installation
 
@@ -15,116 +29,50 @@
 $ npm install --save sequelize-utility
 ```
 
-## Example
+## Usage
 
-### Step 1 - Coming Soon...
+### Step 1 - Intialize databases and do named export
 
-<!-- ```js
-// Create a MySQL connection pool
-var Pool = require("sequelize-pool").Pool;
-var mysql2 = require("mysql2/promise");
+```js
+// database.js
+const { Sequelize } = require("sequelize");
+module.exports.db1 = new Sequelize({
+  host: "host1",
+  username: "username1",
+  password: "password1",
+  database: "database1",
+  dialect: "dialect1"
+});
 
-var pool = new Pool({
-  name: "mysql",
-  create: function() {
-    // return Promise
-    return mysql2.createConnection({
-      user: "scott",
-      password: "tiger",
-      database: "mydb"
-    });
-  },
-  destroy: function(client) {
-    client.end();
-  },
-  max: 10,
-  // optional. if you set this, make sure to drain() (see step 3)
-  min: 2,
-  // Delay in milliseconds after which available resources in the pool will be destroyed.
-  idleTimeoutMillis: 30000,
-  // Delay in milliseconds after which pending acquire request in the pool will be rejected.
-  acquireTimeoutMillis: 30000,
-  // Function, defaults to console.log
-  log: true
+module.exports.db2 = new Sequelize({
+  host: "host2",
+  username: "username2",
+  password: "password2",
+  database: "database2",
+  dialect: "dialect2"
 });
 ```
 
-### Step 2 - Use pool in your code to acquire/release resources
+### Step 2 - Import databases and plug it with sequelize-utility
 
 ```js
-// acquire connection
-pool.acquire().then(connection => {
-  client.query("select * from foo", [], function() {
-    // return object back to pool
-    pool.release(client);
-  });
-});
+// models/index.js
+const { Sequelize } = require("sequelize");
+const { SequelizeHelper } = require("sequelize-utility");
+const dbs = require("path to database.js");
+const dbHelper = new SequelizeHelper(dbs, Sequelize);
 ```
 
-### Step 3 - Drain pool during shutdown (optional)
-
-If you are shutting down a long-lived process, you may notice
-that node fails to exit for 30 seconds or so. This is a side
-effect of the idleTimeoutMillis behaviour -- the pool has a
-setTimeout() call registered that is in the event loop queue, so
-node won't terminate until all resources have timed out, and the pool
-stops trying to manage them.
-
-This behaviour will be more problematic when you set factory.min > 0,
-as the pool will never become empty, and the setTimeout calls will
-never end.
-
-In these cases, use the pool.drain() function. This sets the pool
-into a "draining" state which will gracefully wait until all
-idle resources have timed out. For example, you can call:
+### Step 3 - Then you can import the helper & execute methods like these...
 
 ```js
-// Only call this once in your application -- at the point you want
-// to shutdown and stop using this pool.
-pool.drain().then(() => pool.destroyAllNow());
+// app.js
+const dbHelper = require("path to helper file");
+
+dbHelper.establishConnections();
+dbHelper.syncAllForce();
+dbHelper.syncAll();
+dbHelper.sync();
+dbHelper.syncForce();
+dbHelper.resetTable();
 ```
-
-If you do this, your node process will exit gracefully.
-
-## Draining
-
-If you know would like to terminate all the resources in your pool before
-their timeouts have been reached, you can use `destroyAllNow()` in conjunction
-with `drain()`:
-
-```js
-pool.drain().then(() => pool.destroyAllNow());
-```
-
-One side-effect of calling `drain()` is that subsequent calls to `acquire()`
-will throw an Error.
-
-## Pool info
-
-The following functions will let you get information about the pool:
-
-```js
-// returns factory.name for this pool
-pool.name;
-
-// returns number of resources in the pool regardless of
-// whether they are free or in use
-pool.size;
-
-// returns number of unused resources in the pool
-pool.available;
-
-// returns number of callers waiting to acquire a resource
-pool.waiting;
-
-// returns number of maxixmum number of resources allowed by ppol
-pool.maxSize;
-
-// returns number of minimum number of resources allowed by ppol
-pool.minSize;
-```
-
-## Run Tests
-
-    $ npm install
-    $ npm test -->
