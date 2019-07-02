@@ -5,7 +5,7 @@
 [![Last commit](https://badgen.net/github/last-commit/tahsinature/sequelize-utility)](https://github.com/tahsinature/sequelize-utility)
 [![GitHub stars](https://badgen.net/github/stars/tahsinature/sequelize-utility)](https://github.com/tahsinature/sequelize-utility)
 [![node](https://badgen.net/npm/node/sequelize-utility)](https://www.npmjs.com/package/sequelize-utility)
-[![License](https://badgen.net/github/license/tahsinature/sequelize-utility)](https://github.com/tahsinature/sequelize-utility/)
+[![License](https://badgen.net/github/license/tahsinature/sequelize-utility)](https://github.com/tahsinature/sequelize-utility/blob/master/LICENSE)
 
 New to Sequelize? Take a look at the [Tutorials and Guides](http://docs.sequelizejs.com/).
 
