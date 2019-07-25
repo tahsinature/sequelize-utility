@@ -15,6 +15,12 @@ class SequelizeHelper {
   resetTable(table) {
     return require("./methods/resetTable")(table, this);
   }
+  resetTablesExcepts(table, db) {
+    return require("./methods/resetTablesExcepts")(
+      table,
+      (db = this.connections.length === 1 ? this.connections[0] : db)
+    );
+  }
   sync(connection) {
     return require("./methods/sync")(
       (connection =
