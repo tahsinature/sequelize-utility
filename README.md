@@ -13,6 +13,7 @@ Sequelize-utility is a simple helper of Sequelize library, to efficiently intera
 
 - Establish db connection
 - Establish multiple connections
+- Close all connections
 - Reset a table
 - Sync DB
 - Sync DB (For All Active Connections)
@@ -69,10 +70,14 @@ const dbHelper = new SequelizeHelper(dbs, Sequelize);
 // app.js
 const dbHelper = require("path to helper file");
 
+dbHelper.closeAllConnections();
+dbHelper.dropAllTablesFromAllConnections();
+dbHelper.dropAllTablesFromConnection();
 dbHelper.establishConnections();
-dbHelper.syncAllForce();
-dbHelper.syncAll();
-dbHelper.sync();
-dbHelper.syncForce();
 dbHelper.resetTable();
+dbHelper.resetTablesExcepts();
+dbHelper.sync();
+dbHelper.syncAll();
+dbHelper.syncAllForce();
+dbHelper.syncForce();
 ```

@@ -44,6 +44,11 @@ class SequelizeHelper {
       this.connections
     );
   }
+  closeAllConnections() {
+    return require("./methods/closeAllConnections")(
+      this.connections
+    );
+  }
 }
 
 module.exports.SequelizeHelper = SequelizeHelper;
