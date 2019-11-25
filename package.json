@@ -1,6 +1,6 @@
 {
   "name": "sequelize-utility",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "Sequelize Helper",
   "main": "index.js",
   "dependencies": {
