@@ -1,5 +1,3 @@
-const { debugDB } = require("../util/debug");
-
 module.exports = connectionsArray => {
   return new Promise(function(resolve, reject) {
     let activeConnection = 0;
@@ -7,10 +5,10 @@ module.exports = connectionsArray => {
       connection
         .authenticate()
         .then(() => {
-          debugDB("Connected to Database: " + connection.config.database);
+          logger("Connected to Database: " + connection.config.database);
           activeConnection = activeConnection + 1;
           if (activeConnection === connectionsArray.length) {
-            debugDB("Successfully connected to all DBs.");
+            logger("Successfully connected to all DBs.");
             resolve();
           }
         })

@@ -1,5 +1,3 @@
-const { debugDB } = require("../util/debug");
-
 module.exports = connections => {
   return new Promise((res, rej) => {
     let syncedConnection = 0;
@@ -9,7 +7,7 @@ module.exports = connections => {
         .then(() => {
           syncedConnection = syncedConnection + 1;
           if (syncedConnection === connections.length) {
-            debugDB("All DB synced...");
+            logger("All DB synced...");
             res();
           }
         })
