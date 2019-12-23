@@ -1,4 +1,4 @@
-# 1.1.0
+# 1.0.12
 
 - Remove default loggger
 - Add options
